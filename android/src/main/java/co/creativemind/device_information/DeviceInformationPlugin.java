@@ -85,21 +85,20 @@ public class DeviceInformationPlugin implements FlutterPlugin, MethodCallHandler
                 Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             return Manifest.permission.READ_PHONE_STATE;
         } else {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        if (telephonyManager != null && telephonyManager.getImei() != null) {
-          imeiNumber = telephonyManager.getImei();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // Android 10+
+                if (telephonyManager != null && telephonyManager.getImei() != null) {
+                    imeiNumber = telephonyManager.getImei();
+                  }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (telephonyManager != null && telephonyManager.getImei() != null) {
+                    imeiNumber = telephonyManager.getImei();
+                }
+            } else {
+                if (telephonyManager != null && telephonyManager.getImei() != null) {
+                    imeiNumber = telephonyManager.getImei();
+                  }
+            }
         }
-
-      }else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        if (telephonyManager != null && telephonyManager.getImei() != null) {
-          imeiNumber = telephonyManager.getImei();
-        }
-      }else {
-        if (telephonyManager != null && telephonyManager.getImei() != null) {
-          imeiNumber = telephonyManager.getImei();
-        }
-      }
-    }
         return imeiNumber;
     }
 
